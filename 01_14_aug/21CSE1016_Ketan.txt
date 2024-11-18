@@ -1,0 +1,129 @@
+##### FIRST SECURITY LAB ASSIGNMENT - 14TH AUG 2024 #####
+#### ROLL: 21CSE1016, NAME: KETAN KUNKALIKAR #############
+
+// Q1. write a c++ program to find the gcd of two numbers using euclidean algorithm
+
+#include <bits/stdc++.h>
+using namespace std;
+
+long long Euclidean_GCD(long long a, long long b){
+    if(b == 0)
+        return a;
+
+    return Euclidean_GCD(b, a%b);
+}
+
+int main() {
+    long long a, b;
+    cout << "Enter 2 numbers : ";
+    cin >> a >> b;
+    cout << "gcd = " << Euclidean_GCD(a, b) << "\n";
+    return 0;
+}
+
+
+// Q2. Write a program to find gcd of 2 large integers using Extended Euclidean Algorithm.
+
+#include <bits/stdc++.h>
+using namespace std;
+
+long long Extended_Euclidean_GCD(long long a, long long b){
+    long long r1 = a, r2 = b;
+    long long s1 = 1, s2 = 0;
+    long long t1 = 0, t2 = 1;
+
+    while(r2 != 0){
+        long long q = r1/r2;
+        r1 = r1 - q*r2;
+        swap(r1, r2);
+        s1 = s1 - q*s2;
+        swap(s1, s2);
+        t1 = t1 - q*t2;
+        swap(t1, t2);
+    }
+    return r1;
+}
+
+int main() {
+    long long a, b;
+    cout << "Enter 2 numbers : ";
+    cin >> a >> b;
+    cout << "gcd = " << Extended_Euclidean_GCD(a, b) << "\n";
+    return 0;
+}
+
+// Q3. Write a program to find MI of two given numbers, along with n value, using Extended Euclidean Algorithm.
+
+#include <bits/stdc++.h>
+using namespace std;
+
+long long MI_using_EEA(long long a, long long b){
+    // here, r1 (or a) is our n from Zn. and r2 is the number we want to find MI for.
+    long long r1 = a, r2 = b;
+    long long s1 = 1, s2 = 0;
+    long long t1 = 0, t2 = 1;
+
+    while(r2 != 0){
+        long long q = r1/r2;
+        r1 = r1 - q*r2;
+        swap(r1, r2);
+        s1 = s1 - q*s2;
+        swap(s1, s2);
+        t1 = t1 - q*t2;
+        swap(t1, t2);
+    }
+    cout << "x = " << s1 << ". y = " << t1 << ".\n";
+    cout << "gcd = " << a << " * " << s1 << " + " << b << " * " << t1 << " = " << a*s1 + b*t1 << "\n";
+    if(t1 < 0)
+        t1 += a;
+
+    return t1;
+}
+
+int main() {
+    long long a, b;
+    cout << "first enter value of n, and then your desired number : ";
+    cin >> a >> b;
+    cout << "MI of " << b << " in Z" << a << " = " << MI_using_EEA(a, b) << "\n";
+    return 0;
+}
+
+// Q4. Write a program to find MI of two given numbers, along with n value, without using Extended Euclidean Algorithm.
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    long long a, b;
+    cout << "Enter the value of n and the number you want to find MI for : ";
+    cin >> a >> b;
+    for (int i = 0; i < a; i++)
+    {
+        if ((b * i) % a == 1)
+        {
+            cout << "MI = " << i << "\n";
+            break;
+        }
+    }
+    return 0;
+}
+
+// Q5. Write a program to find the additive inverse of a given number in Zn.
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    long long a, b;
+    cout << "Enter the value of n and the number you want to find Additive Inverse for : ";
+    cin >> a >> b;
+    for (int i = 0; i < a; i++)
+    {
+        if ((b + i) % a == 0)
+        {
+            cout << "Additive Inverse = " << i << "\n";
+            break;
+        }
+    }
+    return 0;
+}
